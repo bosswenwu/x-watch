@@ -1,5 +1,5 @@
 window.XWATCH = {
-  "fetchedAt": "2026-10-10T14:48:09.885Z",
+  "fetchedAt": "2026-10-10T15:00:24.785Z",
   "source": "x.pcstyle.dev public posts",
   "covered": [
     "swyx",
@@ -21,7 +21,11 @@ window.XWATCH = {
     "KyivIndependent",
     "NASA",
     "NatGeo",
-    "NASAHubble"
+    "NASAHubble",
+    "TheOnion",
+    "dog_rates",
+    "Wikipedia",
+    "ESA"
   ],
   "lanes": [
     {
@@ -1709,6 +1713,38 @@ window.XWATCH = {
       ],
       "posts": [
         {
+          "id": "2108871915771134359",
+          "text": "Welcome home, Sophie! After nearly eight months on the International Space Station, our astronaut @Soph_astro has returned to Europe. She will now begin post-flight recovery and research activities at our European Astronaut Centre in Cologne.",
+          "created": "2026-10-10T10:47:00.000Z",
+          "fav": 407,
+          "rt": 64,
+          "reply": 10,
+          "quote": 7,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2108871915771134359"
+        },
+        {
+          "id": "2108831324111089956",
+          "text": "Welcome back to Europe @Soph_astro!",
+          "created": "2026-10-10T08:05:42.000Z",
+          "fav": 506,
+          "rt": 43,
+          "reply": 11,
+          "quote": 4,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2108831324111089956"
+        },
+        {
           "id": "2108662426606395572",
           "text": "Brewing up baby stars ⭐ @NASAWebb used infrared light to peer through the dust in this nebula, revealing many stars of different ages. This helps us study how stars change over time.",
           "created": "2026-10-09T20:54:34.000Z",
@@ -1885,6 +1921,38 @@ window.XWATCH = {
           "link": "https://x.com/NASAHubble/status/2108244617514680570"
         },
         {
+          "id": "2108242586833953265",
+          "text": "Mission accomplished. ✅ After 237 days in space, ESA astronaut Sophie Adenot has returned safely to Earth, concluding her record-breaking #εpsilon mission packed with science, technology demonstrations and three spacewalks. Welcome home, Sophie!! 🔗 Credit: NASA/Keegan Barber",
+          "created": "2026-10-08T17:06:16.000Z",
+          "fav": 543,
+          "rt": 101,
+          "reply": 22,
+          "quote": 11,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2108242586833953265"
+        },
+        {
+          "id": "2108220793662414862",
+          "text": "Welcome home Crew-12!",
+          "created": "2026-10-08T15:39:40.000Z",
+          "fav": 48,
+          "rt": 22,
+          "reply": 1,
+          "quote": 3,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2108220793662414862"
+        },
+        {
           "id": "2108210811202142349",
           "text": "Sometimes, you've just got to stop and admire the stars 🌌",
           "created": "2026-10-08T15:00:00.000Z",
@@ -1901,6 +1969,54 @@ window.XWATCH = {
           "link": "https://x.com/NatGeo/status/2108210811202142349"
         },
         {
+          "id": "2108200988465389639",
+          "text": "🔴 LIVE NOW: Sophie Adenot and her crewmates return to Earth. Follow the mission milestones on @esaspaceflight ▶️ Watch live:",
+          "created": "2026-10-08T14:20:58.000Z",
+          "fav": 461,
+          "rt": 90,
+          "reply": 5,
+          "quote": 12,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2108200988465389639"
+        },
+        {
+          "id": "2108180588372828468",
+          "text": "Sentinel-3C sent its first views of Earth! 🔗",
+          "created": "2026-10-08T12:59:55.000Z",
+          "fav": 151,
+          "rt": 21,
+          "reply": 9,
+          "quote": 1,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "https://pbs.twimg.com/card_img/2108177781708275712/KeJTwLqD?format=jpg&name=800x419",
+          "link": "https://x.com/esa/status/2108180588372828468"
+        },
+        {
+          "id": "2107856534373822580",
+          "text": "“This moment could be historic.” At #IAC2026, we discussed Europe’s future in exploration with our Member States, ahead of key decisions at the Intermediate Ministerial Meeting this December. 🔗",
+          "created": "2026-10-07T15:32:14.000Z",
+          "fav": 80,
+          "rt": 22,
+          "reply": 3,
+          "quote": 4,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2107856534373822580"
+        },
+        {
           "id": "2107834236623294604",
           "text": "It sounds like a movie plot, but NASA really did test our planetary defenses in case an asteroid ever threatens Earth—and it worked. Discover more about LOST IN SPACE: 5,000 Facts for Navigating the Universe:",
           "created": "2026-10-07T14:03:38.000Z",
@@ -1915,6 +2031,22 @@ window.XWATCH = {
           "avatar": "https://pbs.twimg.com/profile_images/2050149546685022208/72MxNUv-_200x200.jpg",
           "photo": "",
           "link": "https://x.com/NatGeo/status/2107834236623294604"
+        },
+        {
+          "id": "2107773389515472909",
+          "text": "🔴 LIVE NOW: Watch Crew 12 undock from the ISS and begin their journey back to Earth. ▶️",
+          "created": "2026-10-07T10:01:51.000Z",
+          "fav": 380,
+          "rt": 58,
+          "reply": 6,
+          "quote": 1,
+          "followers": 1899952,
+          "name": "European Space Agency",
+          "handle": "esa",
+          "why": "欧洲航天",
+          "avatar": "https://pbs.twimg.com/profile_images/2034944299855749122/jIXX0fj6_200x200.jpg",
+          "photo": "",
+          "link": "https://x.com/esa/status/2107773389515472909"
         },
         {
           "id": "2107561534696108537",
