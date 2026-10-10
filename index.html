@@ -10,11 +10,10 @@
       --ink: #17202a;
       --muted: #5e6e7a;
       --line: #c9d5de;
-      --panel: #f6f9fa;
+      --panel: #f4f8f9;
       --ai: #1e4d78;
       --politics: #8e3b32;
       --fun: #1f6b52;
-      --focus: #17202a;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
@@ -22,84 +21,45 @@
       background: var(--paper);
       color: var(--ink);
       font-family: Georgia, "Palatino Linotype", Palatino, serif;
-      min-height: 100vh;
     }
-    button, select { font: inherit; color: inherit; }
     a { color: inherit; }
+    button { font: inherit; color: inherit; background: transparent; }
     .wrap {
-      width: min(1120px, calc(100% - 32px));
+      width: min(1240px, calc(100% - 28px));
       margin: 0 auto;
-      padding: 28px 0 64px;
+      padding: 22px 0 48px;
     }
     header {
       display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 8px 22px;
+      grid-template-columns: auto 1fr auto;
+      gap: 6px 22px;
       align-items: end;
+      padding-bottom: 14px;
       border-bottom: 1px solid var(--line);
-      padding-bottom: 18px;
     }
     .day {
+      margin: 0;
       font-family: Bahnschrift, "Segoe UI", sans-serif;
       font-weight: 600;
-      font-size: 92px;
+      font-size: 64px;
       line-height: 0.8;
       letter-spacing: -0.04em;
-      margin: 0;
-    }
-    .day-meta {
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 18px;
-      margin: 0 0 8px;
     }
     h1 {
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-weight: 600;
-      font-size: 28px;
-      letter-spacing: -0.03em;
       margin: 0;
+      font-family: Bahnschrift, "Segoe UI", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
     }
-    .fetched {
-      margin: 4px 0 0;
+    .fetched, .day-meta {
+      margin: 2px 0 0;
       color: var(--muted);
       font-family: Bahnschrift, "Segoe UI", sans-serif;
       font-size: 14px;
     }
-    .method {
-      grid-column: 2;
-      margin: 0;
-      max-width: 62ch;
-      line-height: 1.45;
-      color: var(--muted);
-      font-size: 16px;
-    }
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px 28px;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin: 18px 0 8px;
-    }
-    .presets { display: flex; gap: 8px; flex-wrap: wrap; }
-    .preset {
-      background: transparent;
-      border: 0;
-      border-bottom: 3px solid transparent;
-      padding: 8px 2px 10px;
-      margin-right: 16px;
-      cursor: pointer;
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 20px;
-    }
-    .preset[aria-selected="true"] { border-bottom-color: var(--lane); }
-    .preset:focus-visible, .window button:focus-visible, .post:focus-visible {
-      outline: 2px solid var(--focus);
-      outline-offset: 3px;
-    }
-    .window { display: flex; gap: 6px; }
+    .window { display: flex; gap: 6px; align-self: end; }
     .window button {
-      background: transparent;
       border: 1px solid transparent;
       padding: 6px 10px;
       cursor: pointer;
@@ -107,123 +67,78 @@
       font-size: 14px;
       color: var(--muted);
     }
-    .window button[aria-pressed="true"] {
-      color: var(--ink);
-      border-color: var(--ink);
+    .window button[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+    .window button:focus-visible, .post:focus-visible, .col-title:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
     }
-    .layout {
+    .board {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      gap: 36px;
-      margin-top: 8px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      margin-top: 18px;
     }
-    .lane-line {
+    .col { min-width: 0; }
+    .col-title {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: 0;
+      border-top: 3px solid var(--lane);
+      padding: 10px 0 0;
+      cursor: pointer;
+      font-family: Bahnschrift, "Segoe UI", sans-serif;
+      font-size: 18px;
+    }
+    .lead {
       margin: 8px 0 0;
-      color: var(--muted);
-      max-width: 68ch;
-      line-height: 1.45;
+      font-size: 17px;
+      line-height: 1.4;
     }
     .post {
-      display: grid;
-      grid-template-columns: 48px minmax(0, 1fr);
-      gap: 12px 14px;
-      padding: 18px 0 18px 14px;
-      border-top: 1px solid var(--line);
-      border-left: 3px solid var(--lane);
+      display: block;
       text-decoration: none;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
     }
     .post:hover { background: var(--panel); }
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      background: var(--line);
-    }
+    .post.lead-post { padding-top: 16px; }
     .who {
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-      align-items: baseline;
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-    }
-    .name { font-size: 16px; }
-    .handle { color: var(--muted); font-weight: 400; }
-    .heat {
-      font-variant-numeric: tabular-nums;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .why {
-      margin: 2px 0 0;
-      color: var(--muted);
+      gap: 10px;
       font-family: Bahnschrift, "Segoe UI", sans-serif;
       font-size: 13px;
+      color: var(--muted);
     }
-    .text {
-      margin: 8px 0 0;
+    .zh {
+      margin: 6px 0 0;
       font-size: 18px;
-      line-height: 1.45;
-      max-width: 68ch;
+      line-height: 1.4;
     }
-    .when {
-      margin: 8px 0 0;
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 13px;
+    .lead-post .zh { font-size: 20px; }
+    .en {
+      margin: 6px 0 0;
       color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .shot {
-      margin-top: 10px;
-      width: min(100%, 420px);
-      max-height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-    .empty {
-      padding: 22px 0;
-      color: var(--muted);
-      border-top: 1px solid var(--line);
-    }
-    .older-label {
-      margin: 28px 0 0;
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 16px;
-    }
-    aside h2 {
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      margin: 22px 0 8px;
-    }
-    .side-link {
-      display: block;
-      text-decoration: none;
-      padding: 8px 0;
-      border-top: 1px solid var(--line);
-      font-size: 15px;
-      line-height: 1.35;
-    }
-    .side-link span {
-      display: block;
-      margin-top: 3px;
-      color: var(--muted);
-      font-family: Bahnschrift, "Segoe UI", sans-serif;
-      font-size: 13px;
-    }
+    .empty { color: var(--muted); padding: 16px 0; border-top: 1px solid var(--line); }
     .miss {
-      margin-top: 28px;
+      margin: 22px 0 0;
       color: var(--muted);
       font-family: Bahnschrift, "Segoe UI", sans-serif;
       font-size: 13px;
     }
-    @media (max-width: 800px) {
-      .day { font-size: 72px; }
-      header, .layout { grid-template-columns: 1fr; }
-      .method { grid-column: 1; }
-      .layout { gap: 8px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      * { scroll-behavior: auto; }
+    @media (max-width: 900px) {
+      header { grid-template-columns: auto 1fr; }
+      .window { grid-column: 1 / -1; }
+      .board { grid-template-columns: 1fr; }
+      .day { font-size: 52px; }
     }
   </style>
 </head>
@@ -232,32 +147,52 @@
     <header>
       <p class="day" id="day">--</p>
       <div>
-        <p class="day-meta" id="day-meta"></p>
         <h1>X 监视</h1>
+        <p class="day-meta" id="day-meta"></p>
         <p class="fetched" id="fetched"></p>
       </div>
-      <p class="method">每天看三栏：AI 帖、世界政治、其他好玩的帖。帖来自固定名单的公开时间线，近窗里按互动挑。点开进入 X。</p>
-    </header>
-    <div class="controls">
-      <div class="presets" id="presets" role="tablist"></div>
       <div class="window" id="window" role="group" aria-label="时间窗"></div>
-    </div>
-    <div class="layout">
-      <main id="main"></main>
-      <aside id="aside"></aside>
-    </div>
+    </header>
+    <div class="board" id="board"></div>
     <p class="miss" id="miss"></p>
   </div>
   <script src="data.js"></script>
   <script>
     const COLORS = { ai: "#1e4d78", politics: "#8e3b32", fun: "#1f6b52" };
     const WINDOWS = [
-      { id: "24", hours: 24, label: "24 小时" },
-      { id: "72", hours: 72, label: "3 天" },
-      { id: "168", hours: 168, label: "7 天" },
+      { hours: 24, label: "24 小时" },
+      { hours: 72, label: "3 天" },
+      { hours: 168, label: "7 天" },
     ];
+    const NOTES = {
+      "2108680150556737819": "Claude 会在真网站上绕开限制继续操作。Anthropic 说影响很小，但以后会更频繁地公开这类行为。",
+      "2108290395599667700": "天体物理学家用 Claude 补出第一张全天紫外图。人要做几周的事，几天做完。",
+      "2108216753604248000": "微软放出跨平台沙箱库，Windows、macOS、Linux 都能用。",
+      "2108414247558316508": "急诊场景里，旧版 Gemini 的建议被其他医生打分，质量和医生差不多，没看到安全问题。",
+      "2107924408597950702": "ChatGPT 现在可以按你的要求生成一个定制界面。",
+      "2107909792945832070": "OpenAI 在做面向 18 岁以下的 ChatGPT，并预览了大学申请规划工具。",
+      "2107861788301607261": "Demis Hassabis 说，眼下最该把 AI 用在医学和健康上，并宣布了和 CZI 的合作。",
+      "2107834249680499136": "谷歌的 SynthID 检测器对所有人开放，用来分辨内容是不是 AI 生成的。",
+      "2108660476020420855": "特朗普用增购俄罗斯柴油来压价格。作者认为这是暂停情报共享之后，对乌克兰最重的一击。",
+      "2108659926168191423": "泽连斯基说，放行俄罗斯柴油出口是“强伙伴的弱决定”，等于给战争多一笔收入。",
+      "2108785177648394322": "10 月 10 日凌晨，俄军制导炸弹打中扎波罗热一栋五层住宅，4 死 4 伤。",
+      "2108924826836435273": "搜救还在继续。基辅独立报更新：俄军袭击已造成乌克兰至少 19 死、39 伤。",
+      "2108667513374732748": "从美国到中国租一艘油轮，现在比把火箭送上太空还贵。",
+      "2108828044961968293": "新德里拘留了数千名抗议者。“蟑螂”青年运动在反对选民名单修订。",
+      "2108841514591809738": "大规模抗议前，印度警方逮捕了“蟑螂”运动的领导人。",
+      "2108923242568175805": "利雅得机场再次遇袭。官员称机场已疏散，空中交通停了。",
+      "2108810927889870893": "机场遇袭之后，沙特几场旗舰峰会的举办受到压力。",
+      "2108900390250934375": "经济学人：俄罗斯正在加大在欧洲的破坏活动，核威胁也越来越离谱。",
+      "2108772385902014795": "特朗普批评挪威诺贝尔和平奖的决定，称这是“国家的污点”。",
+      "2108740524442280200": "美国、乌克兰和欧洲官员在迈阿密开会，讨论如何结束俄罗斯的战争。",
+      "2108662426606395572": "韦伯望远镜用红外看穿星云尘埃，拍到不同年龄的小恒星。",
+      "2108285056170996122": "龙号机组在太平洋溅落。这次空间站任务飞了 237 天，做了医学、量子和金属 3D 打印实验。",
+      "2108244617514680570": "哈勃用可见光和近红外看创生之柱。不同波长穿过气体和尘埃，看到的东西不一样。",
+      "2108618999546122669": "星系对 Arp 143 撞过一次，右边那团因此正在大量生星。",
+      "2108558099925619110": "科学家在霸王龙的粪便化石里发现一根羽毛，这是粪化石里的第一次。",
+    };
     const board = window.XWATCH;
-    const state = { lane: "ai", hours: 72 };
+    const state = { hours: 72 };
 
     function ageHours(iso, now) {
       return (now - Date.parse(iso)) / 36e5;
@@ -266,21 +201,20 @@
     function score(post, now) {
       const eng = post.fav + post.rt * 4 + post.reply * 2 + post.quote * 3;
       const rate = eng / Math.max(post.followers || 1000, 1000);
-      const recency = Math.exp(-ageHours(post.created, now) / 36);
-      const substance = Math.min(post.text.length, 220) / 220;
-      return rate * recency * (0.35 + 0.65 * substance);
-    }
-
-    function inWindow(post, now) {
-      const age = ageHours(post.created, now);
-      return age >= 0 && age <= state.hours;
+      const recency = Math.exp(-ageHours(post.created, now) / 30);
+      const thin = post.text.length < 110 ? 0.2 : 1;
+      const noted = NOTES[post.id] ? 1.7 : 1;
+      const promo = /tix will sell out|last call to join|comp package/i.test(post.text) ? 0.05 : 1;
+      return rate * recency * thin * noted * promo;
     }
 
     function ranked(posts, now) {
-      const picked = posts.filter((post) => inWindow(post, now));
       const perHandle = new Map();
-      return picked
-        .slice()
+      return posts
+        .filter((post) => {
+          const age = ageHours(post.created, now);
+          return age >= 0 && age <= state.hours;
+        })
         .sort((a, b) => score(b, now) - score(a, now))
         .filter((post) => {
           const n = perHandle.get(post.handle) || 0;
@@ -288,14 +222,14 @@
           perHandle.set(post.handle, n + 1);
           return true;
         })
-        .slice(0, 12);
+        .slice(0, 5);
     }
 
     function fmtHeat(post) {
       const n = post.fav + post.rt;
-      if (n >= 10000) return (n / 10000).toFixed(1) + " 万互动";
-      if (n >= 1000) return (n / 1000).toFixed(1) + " 千互动";
-      return n + " 互动";
+      if (n >= 10000) return (n / 10000).toFixed(1) + " 万";
+      if (n >= 1000) return (n / 1000).toFixed(1) + " 千";
+      return String(n);
     }
 
     function fmtWhen(iso, now) {
@@ -311,65 +245,42 @@
       const node = document.createElement(tag);
       for (const [key, value] of Object.entries(attrs || {})) {
         if (key === "text") node.textContent = value;
-        else if (key === "html") node.innerHTML = value;
         else node.setAttribute(key, value);
       }
       for (const child of children || []) node.append(child);
       return node;
     }
 
-    function postNode(post, now) {
-      const link = el("a", { class: "post", href: post.link, target: "_blank", rel: "noopener" });
-      const img = el("img", { class: "avatar", alt: "", src: post.avatar || "" });
-      const body = el("div");
+    function postNode(post, now, isLead) {
+      const link = el("a", {
+        class: isLead ? "post lead-post" : "post",
+        href: post.link,
+        target: "_blank",
+        rel: "noopener",
+      });
       const who = el("div", { class: "who" });
       who.append(
-        el("div", { class: "name", text: post.name + "  " }),
-        el("div", { class: "heat", text: fmtHeat(post) })
+        el("span", { text: "@" + post.handle + "  " + post.why }),
+        el("span", { text: fmtHeat(post) + "  " + fmtWhen(post.created, now) })
       );
-      who.querySelector(".name").append(el("span", { class: "handle", text: "@" + post.handle }));
-      body.append(who, el("p", { class: "why", text: post.why }), el("p", { class: "text", text: post.text }));
-      if (post.photo) body.append(el("img", { class: "shot", alt: "", src: post.photo }));
-      body.append(el("p", { class: "when", text: fmtWhen(post.created, now) }));
-      link.append(img, body);
+      link.append(who);
+      const note = NOTES[post.id];
+      if (note) link.append(el("p", { class: "zh", text: note }));
+      const en = el("p", { class: note ? "en" : "zh", text: post.text });
+      link.append(en);
       return link;
     }
 
     function render() {
-      if (!board) {
-        document.getElementById("fetched").textContent = "还没有数据。双击 刷新.bat。";
-        return;
-      }
       const now = Date.now();
       const fetched = new Date(board.fetchedAt);
       document.getElementById("day").textContent = String(fetched.getDate());
       document.getElementById("day-meta").textContent =
-        fetched.getFullYear() + "年" + (fetched.getMonth() + 1) + "月  " +
-        "周" + "日一二三四五六"[fetched.getDay()];
+        fetched.getFullYear() + "年" + (fetched.getMonth() + 1) + "月  周" + "日一二三四五六"[fetched.getDay()];
       const staleH = (now - fetched.getTime()) / 36e5;
       document.getElementById("fetched").textContent =
-        "名单拉取于 " +
-        fetched.getHours() + ":" + String(fetched.getMinutes()).padStart(2, "0") +
-        (staleH > 18 ? "。已超过 18 小时，双击 刷新.bat 再拉一次。" : "。");
-
-      const presets = document.getElementById("presets");
-      presets.replaceChildren();
-      for (const lane of board.lanes) {
-        const count = ranked(lane.posts, now).length;
-        const btn = el("button", {
-          class: "preset",
-          role: "tab",
-          type: "button",
-          "aria-selected": state.lane === lane.id ? "true" : "false",
-          text: lane.title + "  " + count,
-        });
-        btn.style.setProperty("--lane", COLORS[lane.id]);
-        btn.addEventListener("click", () => {
-          state.lane = lane.id;
-          render();
-        });
-        presets.append(btn);
-      }
+        "拉取于 " + fetched.getHours() + ":" + String(fetched.getMinutes()).padStart(2, "0") +
+        (staleH > 18 ? "，已超过 18 小时" : "");
 
       const windows = document.getElementById("window");
       windows.replaceChildren();
@@ -386,55 +297,39 @@
         windows.append(btn);
       }
 
-      const lane = board.lanes.find((item) => item.id === state.lane);
-      document.documentElement.style.setProperty("--lane", COLORS[lane.id]);
-      const main = document.getElementById("main");
-      const posts = ranked(lane.posts, now);
-      const nodes = [el("p", { class: "lane-line", text: lane.line })];
-      if (!posts.length) {
-        nodes.push(el("p", { class: "empty", text: "这个时间窗里，名单上没有新帖。" }));
-        if (state.hours < 168 && lane.older?.length) {
-          nodes.push(el("p", { class: "older-label", text: "近两周里还有人转的帖" }));
-          for (const post of lane.older.slice(0, 4)) nodes.push(postNode(post, now));
+      const boardEl = document.getElementById("board");
+      const cols = board.lanes.map((lane) => {
+        const posts = ranked(lane.posts, now);
+        const col = el("section", { class: "col", id: "lane-" + lane.id });
+        col.style.setProperty("--lane", COLORS[lane.id]);
+        const title = el("button", { class: "col-title", type: "button", text: lane.title });
+        title.addEventListener("click", () => {
+          state.hours = state.hours;
+          document.getElementById("lane-" + lane.id).scrollIntoView({ block: "start" });
+        });
+        col.append(title);
+        if (!posts.length) {
+          col.append(el("p", { class: "empty", text: "这个时间窗里没有新帖。" }));
+          return col;
         }
-      } else {
-        for (const post of posts) nodes.push(postNode(post, now));
-      }
-      main.replaceChildren(...nodes);
-
-      const aside = document.getElementById("aside");
-      const side = [];
-      for (const other of board.lanes.filter((item) => item.id !== lane.id)) {
-        side.push(el("h2", { text: other.title }));
-        const tops = ranked(other.posts, now).slice(0, 4);
-        if (!tops.length) {
-          side.push(el("p", { class: "why", text: "这个时间窗是空的。" }));
-          continue;
-        }
-        for (const post of tops) {
-          const a = el("a", { class: "side-link", href: post.link, target: "_blank", rel: "noopener" });
-          a.append(document.createTextNode(post.text.length > 72 ? post.text.slice(0, 72) + "…" : post.text));
-          a.append(el("span", { text: post.name + "  " + fmtWhen(post.created, now) }));
-          side.push(a);
-        }
-      }
-      aside.replaceChildren(...side);
+        posts.forEach((post, index) => col.append(postNode(post, now, index === 0)));
+        return col;
+      });
+      boardEl.replaceChildren(...cols);
 
       const miss = document.getElementById("miss");
-      if (board.errors?.length) {
-        miss.textContent = "这次没读到：" + board.errors.map((item) => "@" + item.handle).join(" ");
-      } else {
-        miss.textContent = "双击 刷新.bat 可立刻重拉。每天 7:00 也会自动拉，电脑开着才会跑。";
-      }
+      const failed = (board.errors || []).map((item) => "@" + item.handle);
+      miss.textContent = failed.length
+        ? "这次没读到 " + failed.join(" ")
+        : "点开进 X。本地每天 7:00 重拉，公网要再推一次才更新。";
     }
 
     document.addEventListener("keydown", (event) => {
       if (event.target.matches("input, textarea")) return;
-      const order = ["ai", "politics", "fun"];
       const n = Number(event.key);
       if (n >= 1 && n <= 3) {
-        state.lane = order[n - 1];
-        render();
+        const lane = board.lanes[n - 1];
+        document.getElementById("lane-" + lane.id).scrollIntoView({ block: "start" });
       }
     });
 
