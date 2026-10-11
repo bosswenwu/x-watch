@@ -113,8 +113,14 @@
     }
     .zh {
       margin: 6px 0 0;
-      font-size: 18px;
+      font-size: 17px;
       line-height: 1.4;
+    }
+    .clip {
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
     .lead-post .zh { font-size: 20px; }
     .en {
@@ -168,6 +174,8 @@
       "2108680150556737819": "Claude 会在真网站上绕开限制继续操作。Anthropic 说影响很小，但以后会更频繁地公开这类行为。",
       "2108290395599667700": "天体物理学家用 Claude 补出第一张全天紫外图。人要做几周的事，几天做完。",
       "2108216753604248000": "微软放出跨平台沙箱库，Windows、macOS、Linux 都能用。",
+      "2108547065634844839": "Simon Willison 边做饭边用语音让 Codex 给博客加了一个功能。",
+      "2108302539498414208": "Anthropic 启动 Cyber Mission，要把关键基础设施和开源软件的安全补上。",
       "2108414247558316508": "急诊场景里，旧版 Gemini 的建议被其他医生打分，质量和医生差不多，没看到安全问题。",
       "2107924408597950702": "ChatGPT 现在可以按你的要求生成一个定制界面。",
       "2107909792945832070": "OpenAI 在做面向 18 岁以下的 ChatGPT，并预览了大学申请规划工具。",
@@ -191,6 +199,17 @@
       "2108618999546122669": "星系对 Arp 143 撞过一次，右边那团因此正在大量生星。",
       "2108558099925619110": "科学家在霸王龙的粪便化石里发现一根羽毛，这是粪化石里的第一次。",
       "2108871915771134359": "欧洲航天局宇航员 Sophie 在空间站待了近八个月，今天回到欧洲，接下来在科隆做恢复和科研。",
+      "2109056389285085519": "宾夕法尼亚州伊利市，一名男子在家中打死八人，其中包括一名孕妇和几名儿童，随后自杀。",
+      "2109052606144282963": "马拉维首都利隆圭燃油短缺，有人排队三天等汽油，有人睡在车里。",
+      "2109041282345525731": "利雅得哈立德国王国际机场本周三度遇袭，民航局称有人受伤。",
+      "2109042649982509216": "也门胡塞武装公布无人机视频，称正在打击沙特支持的也门政府军。",
+      "2109039927279436261": "沙特领导的联盟说，一枚弹体落在达曼法赫德国王国际机场附近。",
+      "2109047791922332003": "巴勒斯坦外交部谴责对利雅得机场和沙特的袭击。",
+      "2108965790670295385": "有人用特殊透镜浴房，让站在里面的妻子看起来消失了。",
+      "2108950692245156152": "鹦鹉丢了喙，主人给它打印了一个假喙。",
+      "2108960750706290963": "阿姆斯特丹每年从运河里捞上大约一万两千到一万五千辆自行车。",
+      "2109048834135597370": "你难过的时候可以想想：体内一种叫驱动蛋白的小东西，正一刻不停地干活，你才活着。",
+      "2109045056225390707": "这个年轻人上了战场，回来时变了很多，女朋友没有离开他。",
     };
     const board = window.XWATCH;
     const state = { hours: 72 };
@@ -199,31 +218,83 @@
       return (now - Date.parse(iso)) / 36e5;
     }
 
+    function isPromo(post) {
+      return /tix will sell out|last call to join|comp package/i.test(post.text);
+    }
+
+    function isSport(post) {
+      return /soccer|tennis|ronaldo|\bopen final\b|verstappen|grand prix/i.test(post.text);
+    }
+
+    function hasSubstance(post) {
+      return Boolean(NOTES[post.id]) || post.text.length >= 160;
+    }
+
     function score(post, now) {
       const eng = post.fav + post.rt * 4 + post.reply * 2 + post.quote * 3;
       const rate = eng / Math.max(post.followers || 1000, 1000);
-      const recency = Math.exp(-ageHours(post.created, now) / 30);
-      const thin = post.text.length < 110 ? 0.2 : 1;
-      const noted = NOTES[post.id] ? 1.7 : 1;
-      const promo = /tix will sell out|last call to join|comp package/i.test(post.text) ? 0.05 : 1;
-      return rate * recency * thin * noted * promo;
+      const recency = Math.exp(-ageHours(post.created, now) / 18);
+      const thin = post.text.length < 80 && !NOTES[post.id] ? 0.2 : 1;
+      return rate * recency * thin * (isPromo(post) ? 0.05 : 1);
     }
 
-    function ranked(posts, now) {
+    function ranked(posts, now, laneId) {
+      const eligible = posts.filter((post) => {
+        const age = ageHours(post.created, now);
+        return age >= 0 && age <= state.hours && !isPromo(post) && hasSubstance(post);
+      });
       const perHandle = new Map();
-      return posts
-        .filter((post) => {
-          const age = ageHours(post.created, now);
-          return age >= 0 && age <= state.hours;
-        })
-        .sort((a, b) => score(b, now) - score(a, now))
-        .filter((post) => {
+      const used = new Set();
+      function take(list, limit, handleCap) {
+        const out = [];
+        for (const post of list) {
+          if (out.length >= limit) break;
+          if (used.has(post.id)) continue;
           const n = perHandle.get(post.handle) || 0;
-          if (n >= 2) return false;
+          if (n >= handleCap) continue;
           perHandle.set(post.handle, n + 1);
-          return true;
-        })
-        .slice(0, 5);
+          used.add(post.id);
+          out.push(post);
+        }
+        return out;
+      }
+      let fresh = [];
+      if (laneId === "politics" || laneId === "fun") {
+        const pool = eligible
+          .filter((post) => ageHours(post.created, now) <= 16 && post.text.length >= 70 && !(laneId === "politics" && isSport(post)))
+          .sort((a, b) => Date.parse(b.created) - Date.parse(a.created));
+        const byHandle = new Map();
+        for (const post of pool) {
+          const list = byHandle.get(post.handle) || [];
+          if (list.length < 6) list.push(post);
+          byHandle.set(post.handle, list);
+        }
+        const queues = [...byHandle.values()];
+        const each = queues.length <= 2 ? 5 : 2;
+        for (let i = 0; i < each && fresh.length < 8; i++) {
+          for (const queue of queues) {
+            if (fresh.length >= 8) break;
+            if (!queue[i] || used.has(queue[i].id)) continue;
+            fresh.push(queue[i]);
+            used.add(queue[i].id);
+            perHandle.set(queue[i].handle, (perHandle.get(queue[i].handle) || 0) + 1);
+          }
+        }
+      }
+      const rest = eligible
+        .filter((post) => !used.has(post.id))
+        .sort((a, b) => score(b, now) - score(a, now));
+      let picked = fresh.concat(take(rest, 14 - fresh.length, 3));
+      if (laneId === "ai" && state.hours >= 72 && picked.length < 14) {
+        const older = posts
+          .filter((post) => {
+            const age = ageHours(post.created, now);
+            return age > state.hours && age <= 168 && !isPromo(post) && hasSubstance(post) && !used.has(post.id);
+          })
+          .sort((a, b) => score(b, now) - score(a, now));
+        picked = picked.concat(take(older, 14 - picked.length, 3));
+      }
+      return picked;
     }
 
     function fmtHeat(post) {
@@ -267,7 +338,7 @@
       link.append(who);
       const note = NOTES[post.id];
       if (note) link.append(el("p", { class: "zh", text: note }));
-      const en = el("p", { class: note ? "en" : "zh", text: post.text });
+      const en = el("p", { class: note ? "en" : "zh clip", text: post.text });
       link.append(en);
       return link;
     }
@@ -300,10 +371,10 @@
 
       const boardEl = document.getElementById("board");
       const cols = board.lanes.map((lane) => {
-        const posts = ranked(lane.posts, now);
+        const posts = ranked(lane.posts, now, lane.id);
         const col = el("section", { class: "col", id: "lane-" + lane.id });
         col.style.setProperty("--lane", COLORS[lane.id]);
-        const title = el("button", { class: "col-title", type: "button", text: lane.title });
+        const title = el("button", { class: "col-title", type: "button", text: lane.title + "  " + posts.length });
         title.addEventListener("click", () => {
           state.hours = state.hours;
           document.getElementById("lane-" + lane.id).scrollIntoView({ block: "start" });

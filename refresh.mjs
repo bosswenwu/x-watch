@@ -139,7 +139,7 @@ function toPost(item, why) {
 async function fetchAccount(handle, why, since) {
   const url =
     `https://x.pcstyle.dev/${encodeURIComponent(handle)}/posts` +
-    `?since=${since}&max_posts=8&format=json&with_reposts=0&with_replies=0`;
+    `?since=${since}&max_posts=12&format=json&with_reposts=0&with_replies=0`;
   let lastErr = null;
   for (let attempt = 0; attempt < 2; attempt++) {
     try {
@@ -221,7 +221,7 @@ function writeBoard(fetched) {
       const perHandle = new Map();
       for (const post of recent) {
         const n = perHandle.get(post.handle) || 0;
-        if (n >= 8) continue;
+        if (n >= 12) continue;
         perHandle.set(post.handle, n + 1);
         capped.push(post);
       }
